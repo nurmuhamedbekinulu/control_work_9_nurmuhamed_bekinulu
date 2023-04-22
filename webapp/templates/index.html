@@ -11,7 +11,7 @@
             <div class="card-body">
             <h5 class="card-title">{{ photo.author }}</h5>
             <p class="card-text">{{ photo.caption }}</p>
-            <a href="#" class="btn btn-primary">Подробнее...</a>
+            <a href="{% url 'photo_detail' photo.pk %}" class="btn btn-primary">Подробнее...</a>
             </div>
         </div>
         {% endfor %}
