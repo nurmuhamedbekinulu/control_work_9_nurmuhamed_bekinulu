@@ -46,14 +46,12 @@ class Photo(models.Model):
 
     def __str__(self):
         return f'{self.photo} - {self.caption}'
-    
+
     def delete(self, using=None, keep_parents=False):
         self.is_deleted = True
         self.deleted_at = timezone.now()
         self.save()
 
-
     class Meta:
         verbose_name = 'Фото'
         verbose_name_plural = 'Фотографии'
-

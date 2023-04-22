@@ -8,17 +8,20 @@ from accounts.models import Profile
 
 class LoginForm(forms.Form):
     username = forms.CharField(required=True, label='Логин')
-    password = forms.CharField(required=True, label='Пароль', widget=forms.PasswordInput)
+    password = forms.CharField(
+        required=True, label='Пароль', widget=forms.PasswordInput)
 
 
 class CustomUserCreationForm(forms.ModelForm):
-    password = forms.CharField(label='Пароль', strip=False, required=True, widget=forms.PasswordInput)
+    password = forms.CharField(
+        label='Пароль', strip=False, required=True, widget=forms.PasswordInput)
     password_confirm = forms.CharField(label='Подтвердите пароль', strip=False, required=True,
                                        widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password_confirm', 'first_name', 'last_name', 'email')
+        fields = ('username', 'password', 'password_confirm',
+                  'first_name', 'last_name', 'email')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -41,7 +44,8 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ('first_name', 'last_name', 'email')
-        labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
+        labels = {'first_name': 'Имя',
+                  'last_name': 'Фамилия', 'email': 'Email'}
 
 
 class ProfileChangeForm(forms.ModelForm):

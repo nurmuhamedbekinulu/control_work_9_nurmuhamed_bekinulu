@@ -6,9 +6,10 @@ from rest_framework.views import APIView
 from webapp.models.photos import Photo
 from api.serializers import PhotoSerializer
 
+
 class PhotoView(APIView):
-    
-    def  get(self, request, *args, **kwargs):
+
+    def get(self, request, *args, **kwargs):
         object = Photo.objects.all()
         serializer = PhotoSerializer(object, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
