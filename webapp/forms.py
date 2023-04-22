@@ -35,6 +35,7 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = ('photo', 'caption', 'author')
+        widgets = { 'photo': forms.ClearableFileInput(attrs={'multiple': True}),}
         labels = {
             'photo': 'Фотография',
             'caption': 'Описание',
