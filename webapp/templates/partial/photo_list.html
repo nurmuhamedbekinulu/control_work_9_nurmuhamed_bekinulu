@@ -2,10 +2,18 @@
     {% include 'partial/pagination.html' %}
 {% endif %}
 {% for photo in photos %}
-    <div class="box">
-        <h3><a href="{% url "photo_detail" photo.pk %}">{{ photo.caption }}</a></h3>
-        <p>Статус: ({{ photo.get_status_display}})</p>
-        <p>Published at: {{ photo.publish_at|date:"d.m.Y H:i:s" }}</p>
+    <div class="container m-auto">
+        <div class="card col-8 m-auto">
+            <img class="card-img-top" src="../../uploads/{{ photo.photo }}" alt="{{ photo.caption }}">
+            <div class="card-body">
+                <h5 class="card-title">Автор: {{ photo.author }}</h5>
+                <p class="card-text">Подпись: {{ photo.caption }}</p>
+                <p class="card-text">Дата создания: {{ photo.created_at }}</p>
+                <p class="card-text">Дата обновления: {{ photo.updated_at }}</p>
+            <a href="{% url 'photo_detail' photo.pk %}" class="btn btn-primary">Подробнее...</a>
+            </div>
+        </div>
+
         {% if perms.webapp.photo or photo.author == request.user %}
             <p><a href="{% url 'photo_update' photo.pk %}" class="btn btn-success">Update</a></p>
         {% endif %}
