@@ -26,11 +26,11 @@ class Photo(models.Model):
         blank=False,
         verbose_name="Автор"
     )
-    # users = models.ManyToManyField(
-    #     through='webapp.Favorite',
-    #     to=User,
-    #     related_name='photos'
-    # )
+    users = models.ManyToManyField(
+        through='webapp.Favorite',
+        to=User,
+        related_name='photos'
+    )
 
     def __str__(self):
         return f'{self.photo} - {self.caption}'
