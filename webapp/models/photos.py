@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Photo(models.Model):
@@ -31,6 +32,27 @@ class Photo(models.Model):
         to=User,
         related_name='photos'
     )
+    is_deleted = models.BooleanField(
+        verbose_name='удалено',
+        null=False,
+        default=False
+    )
+    deleted_at = models.DateTimeField(
+        verbose_name='Дата и время удаления',
+        null=True,
+        default=None
+    )
 
     def __str__(self):
         return f'{self.photo} - {self.caption}'
+    
+    def delete(self, using=None, keep_parents=False):
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.save()
+
+
+    class Meta:
+        verbose_name = 'Фото'
+        verbose_name_plural = 'Фотографии'
+
