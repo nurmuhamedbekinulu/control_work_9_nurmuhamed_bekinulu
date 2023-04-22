@@ -24,28 +24,26 @@ class PhotoDetail(DetailView):
     model = Photo
 
 
+class GroupPermissionMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=['admin', 'manager']).exists()
+
+
 class PhotoDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     template_name = 'photo_confirm_delete.html'
     model = Photo
     success_url = reverse_lazy('index')
     success_message = 'Фотография удалена'
 
-# class GroupPermissionMixin(UserPassesTestMixin):
-#     def test_func(self):
-#         return self.request.user.groups.filter(name__in=['admin', 'manager']).exists()
 
+class PhotoUpdateView(GroupPermissionMixin, LoginRequiredMixin, UpdateView):
+    template_name = 'photo_update.html'
+    form_class = PhotoForm
+    model = Photo
+    success_message = 'Фотография обновлена'
 
-# class ArticleUpdateView(GroupPermissionMixin, LoginRequiredMixin, UpdateView):
-#     template_name = 'article_update.html'
-#     form_class = ArticleForm
-#     model = Article
-#     success_message = 'Статья обновлена'
-
-#     def get_success_url(self):
-#         return reverse('article_detail', kwargs={'pk': self.object.pk})
-
-
-
+    def get_success_url(self):
+        return reverse('photo_detail', kwargs={'pk': self.object.pk})
 
 
 # class FavoriteView(LoginRequiredMixin, FormView):

@@ -3,14 +3,16 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     {% include 'partial/search.html' %}
-    <h1>Photos</h1>
+    <h1>Фотографии:</h1>
     <div class="container col-8 m-auto">
         {% for photo in photos %}
         <div class="card col-8 m-auto">
             <img class="card-img-top" src="uploads/{{ photo.photo }}" alt="{{ photo.caption }}">
             <div class="card-body">
-            <h5 class="card-title">{{ photo.author }}</h5>
-            <p class="card-text">{{ photo.caption }}</p>
+                <h5 class="card-title">Автор: {{ photo.author }}</h5>
+                <p class="card-text">Подпись: {{ photo.caption }}</p>
+                <p class="card-text">Дата создания: {{ photo.created_at }}</p>
+                <p class="card-text">Дата обновления: {{ photo.updated_at }}</p>
             <a href="{% url 'photo_detail' photo.pk %}" class="btn btn-primary">Подробнее...</a>
             </div>
         </div>
