@@ -13,7 +13,10 @@ class PhotoCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     template_name = 'photo_create.html'
     model = Photo
     form_class = PhotoForm
-    success_message = 'Фото добавлено'
+
+    def form_valid(self, form, *args, **kwargs):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('photo_detail', kwargs={'pk': self.object.pk})

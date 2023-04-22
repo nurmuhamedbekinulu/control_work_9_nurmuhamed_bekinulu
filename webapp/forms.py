@@ -34,12 +34,11 @@ class PhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ('photo', 'caption', 'author')
+        fields = ('photo', 'caption')
         widgets = { 'photo': forms.ClearableFileInput(attrs={'multiple': True}),}
         labels = {
             'photo': 'Фотография',
             'caption': 'Описание',
-            'author': 'Автор',
         }
 
     def clean_caption(self):
