@@ -16,6 +16,15 @@
             <a href="{% url 'photo_detail' photo.pk %}" class="btn btn-primary">Подробнее...</a>
             </div>
         </div>
+
+        <p>Favorite count {{ photo.users.count }}</p>
+        {% if user.is_authenticated %}
+            <form action="{% url 'to_favorite' photo.pk %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form favorite_form %}
+                {% bootstrap_button button_type="submit" content='Добавить в избранное' %}
+            </form>
+        {% endif %}
         {% endfor %}
     </div>
     {% if is_paginated %}

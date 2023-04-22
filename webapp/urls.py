@@ -2,7 +2,7 @@ from django.urls import path
 
 
 from webapp.views.base import IndexView, IndexRedirectView
-from webapp.views.photos import PhotoDetail, PhotoCreateView, PhotoDeleteView, PhotoUpdateView
+from webapp.views.photos import PhotoDetail, PhotoCreateView, PhotoDeleteView, PhotoUpdateView, FavoriteView
 
 urlpatterns =[
     path("", IndexView.as_view(), name='index'),
@@ -12,5 +12,6 @@ urlpatterns =[
     path('photo/<int:pk>/delete/', PhotoDeleteView.as_view(), name='photo_delete'),
     path('photo/<int:pk>/confirm_delete/', PhotoDeleteView.as_view(), name='confirm_delete'),
     path('photo/<int:pk>/update/', PhotoUpdateView.as_view(), name='photo_update'),
+    path('photos/<int:pk>/to-favorite', FavoriteView.as_view(), name='to_favorite'),
 ]
 

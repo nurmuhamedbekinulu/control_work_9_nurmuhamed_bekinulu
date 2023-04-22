@@ -1,0 +1,22 @@
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}
+{% for photo in photos %}
+    <div class="box">
+        <h3><a href="{% url "photo_detail" photo.pk %}">{{ photo.caption }}</a></h3>
+        <p>Статус: ({{ photo.get_status_display}})</p>
+        <p>Published at: {{ photo.publish_at|date:"d.m.Y H:i:s" }}</p>
+        {% if perms.webapp.photo or photo.author == request.user %}
+            <p><a href="{% url 'photo_update' photo.pk %}" class="btn btn-success">Update</a></p>
+        {% endif %}
+        {% if perms.webapp.delete_photo or photo.author == request.user %}
+            <p><a href="{% url 'photo_delete' photo.pk %}" class="btn btn-danger">Delete</a></p>
+        {% endif %}
+    </div>
+{% empty %}
+    <h2 class="text-center">Нет фото</h2>
+{% endfor %}
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}
+

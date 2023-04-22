@@ -2,8 +2,6 @@
 {% block title %}Пользователь{% endblock %}
 
 {% block menu %}
-    <li><a href=" {% url 'change' user_obj.pk %}" class="btn btn-primary">Редактировать</a></li>
-    <li><a href="#" class="btn btn-primary">Смена пароля</a></li>
 {% endblock %}
 
 {% block content %}
@@ -18,5 +16,5 @@
     <p>Почта: {{ user_obj.email }}</p>
 
     <h2 class="text-center clear">Избранное:</h2>
-    {% include 'partial/article_list.html' %}
+    {% include 'partial/photo_list.html' %}
 {% endblock %}

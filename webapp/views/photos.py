@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, FormView
 
 from webapp.models import Photo, Favorite
-from webapp.forms import PhotoForm
+from webapp.forms import PhotoForm, FavoriteForm
 
 
 class PhotoCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -46,16 +46,16 @@ class PhotoUpdateView(GroupPermissionMixin, LoginRequiredMixin, UpdateView):
         return reverse('photo_detail', kwargs={'pk': self.object.pk})
 
 
-# class FavoriteView(LoginRequiredMixin, FormView):
-#     form_class = FavoriteForm
+class FavoriteView(LoginRequiredMixin, FormView):
+    form_class = FavoriteForm
 
-#     def post(self, request, *args, **kwargs):
-#         article = get_object_or_404(Article, pk=kwargs.get('pk'))
-#         form = self.get_form_class()(request.POST)
-#         if form.is_valid():
-#             note = form.cleaned_data.get('note')
-#             user = request.user
-#             if not Favorite.objects.filter(user=user, article=article).exists():
-#                 Favorite.objects.create(user=user, article=article, note=note)
-#                 messages.success(request, 'Статья была добавлена в избранное')
-#         return redirect('index')
+    def post(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
+        form = self.get_form_class()(request.POST)
+        if form.is_valid():
+            note = form.cleaned_data.get('note')
+            user = request.user
+            if not Favorite.objects.filter(user=user, photo=photo).exists():
+                Favorite.objects.create(user=user, photo=photo, note=note)
+                messages.success(request, 'Фото было добавлено в избранное')
+        return redirect('index')

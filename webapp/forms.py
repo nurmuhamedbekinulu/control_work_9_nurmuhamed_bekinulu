@@ -49,3 +49,6 @@ class PhotoForm(forms.ModelForm):
         if Photo.objects.filter(caption=caption).exists():
             raise ValidationError('Картинка с таким описанием уже есть')
         return caption
+    
+class FavoriteForm(forms.Form):
+    note = forms.CharField(max_length=30, required=True, label='Заметка')
