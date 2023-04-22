@@ -4,25 +4,21 @@
 {% block content %}
     {% include 'partial/search.html' %}
     <h1>Photos</h1>
-
-    <div id="photos">
+    <div class="container col-8 m-auto">
         {% for photo in photos %}
-        <h2>{{ photo.title }}</h2>
-        <h2>{{ photo.text }}</h2>
-        <p>
-            <a href="{% url 'photo_detail' photo.pk %}">Подробнее...</a>
-        </p>
-        <p>Favorite count {{ photo.users.count }}</p>
-        {% if user.is_authenticated %}
-            <form action="{% url 'to_favorite' photo.pk %}" method="post">
-                {% csrf_token %}
-                {% bootstrap_form favorite_form %}
-                {% bootstrap_button button_type="submit" content='Добавить в избранное' %}
-            </form>
-        {% endif %}
-    {% endfor %}
+        <div class="card col-8 m-auto">
+            <img class="card-img-top" src="uploads/{{ photo.photo }}" alt="{{ photo.caption }}">
+            <div class="card-body">
+            <h5 class="card-title">{{ photo.author }}</h5>
+            <p class="card-text">{{ photo.caption }}</p>
+            <a href="#" class="btn btn-primary">Подробнее...</a>
+            </div>
+        </div>
+        {% endfor %}
     </div>
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
 {% endblock %}
+
+
