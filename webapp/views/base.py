@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.utils.http import urlencode
 from django.views.generic import RedirectView, ListView
 
-from webapp.forms import SearchForm
+from webapp.forms import SearchForm, PhotoForm
 from webapp.models import Photo
 
 
@@ -41,6 +41,19 @@ class IndexView(ListView):
         if self.search_value:
             context['query'] = urlencode({'search': self.search_value})
         return context
+
+    # def get_context_data(self, **kwargs):
+    #     if 'form' not in kwargs:
+    #         kwargs['form'] = self.get_photo_form()
+    #     return super().get_context_data(**kwargs)
+
+    # def get_photo_form(self):
+    #     form_kwargs = {'instance': self.object.photo}
+    #     if self.request.method == 'POST':
+    #         form_kwargs['data'] = self.request.POST
+    #         form_kwargs['files'] = self.request.FILES
+    #     return PhotoForm(**form_kwargs)
+
 
 
 class IndexRedirectView(RedirectView):

@@ -6,7 +6,7 @@
             <a href="#" class="btn btn-success">Update photo</a>
         {% endif %}
 
-        <a href="#" class="btn btn-danger">Delete photo</a>
+        <a href="{% url 'photo_delete' photo.pk %}" class="btn btn-danger">Delete photo</a>
     {% endif %}
 {% endblock %}
 {% block content %}

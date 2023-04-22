@@ -6,23 +6,29 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, FormView
 
 from webapp.models import Photo, Favorite
-# from webapp.forms import ArticleForm, FavoriteForm
+from webapp.forms import PhotoForm
 
 
-# class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-#     template_name = 'article_create.html'
-#     model = Article
-#     form_class = ArticleForm
-#     success_message = 'Статья создана'
+class PhotoCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    template_name = 'photo_create.html'
+    model = Photo
+    form_class = PhotoForm
+    success_message = 'Фото добавлено'
 
-#     def get_success_url(self):
-#         return reverse('article_detail', kwargs={'pk': self.object.pk})
+    def get_success_url(self):
+        return reverse('photo_detail', kwargs={'pk': self.object.pk})
 
 
 class PhotoDetail(DetailView):
     template_name = 'photo.html'
     model = Photo
 
+
+class PhotoDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    template_name = 'photo_confirm_delete.html'
+    model = Photo
+    success_url = reverse_lazy('index')
+    success_message = 'Фотография удалена'
 
 # class GroupPermissionMixin(UserPassesTestMixin):
 #     def test_func(self):
@@ -39,11 +45,7 @@ class PhotoDetail(DetailView):
 #         return reverse('article_detail', kwargs={'pk': self.object.pk})
 
 
-# class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
-#     template_name = 'article_confirm_delete.html'
-#     model = Article
-#     success_url = reverse_lazy('index')
-#     success_message = 'Статья удалена'
+
 
 
 # class FavoriteView(LoginRequiredMixin, FormView):
